@@ -1,5 +1,6 @@
 name: Collect DHM river data
 
+# touch to force GitHub to re-register the schedule
 on:
   schedule:
     - cron: "*/5 * * * *"
