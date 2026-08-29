@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fetch historical daily-period series data for every river station and append to a JSONL time series."""
+"""Fetch 7 days of timestamped (~10-min resolution) series data for every river station and append to a JSONL time series."""
 import json
 import time
 from datetime import datetime, timezone
@@ -23,7 +23,7 @@ def main():
         for i, station in enumerate(stations, 1):
             station_id, series_id, name = station["id"], station["series_id"], station["name"]
             try:
-                series = fetch_series(session, csrf, series_id, TODAY, period="3", station_id=station_id)
+                series = fetch_series(session, csrf, series_id, TODAY, period="4", station_id=station_id)
             except Exception as e:
                 print(f"[{i}/{len(stations)}] {name}: FAILED ({e})")
                 continue

@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Scrape historical river-watch data for a single station (series) from DHM.
 
-period: 1=Point, 2=Hourly, 3=Daily (returns ~7 days of hourly readings keyed by date), 4=7 Days Point
+period: 1=Point (1 day, timestamped), 2=Hourly (1 day, hour buckets), 3=Daily (7 days, no
+per-reading timestamps), 4=7 Days Point (7 days, ~10-min readings, each with a datetime)
 """
 import json
 import re
@@ -21,7 +22,7 @@ def new_session(station_id=4913):
     return s, csrf
 
 
-def fetch_series(session, csrf, series_id, date, period="3", station_id=4913):
+def fetch_series(session, csrf, series_id, date, period="4", station_id=4913):
     resp = session.post(
         f"{BASE}/site/getRiverWatchBySeriesId_Single",
         data={"csrf_test_name": csrf, "date": date, "period": period, "seriesid": series_id},
